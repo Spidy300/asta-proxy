@@ -38,7 +38,6 @@ exports.handler = async (event, context) => {
     const contentType = response.headers.get('content-type') || 'application/octet-stream';
     const isM3U8 = contentType.includes('mpegurl') || contentType.includes('m3u8') || targetUrl.includes('.m3u8');
     
-    // Copy important headers
     const responseHeaders = {
       ...headers,
       'Content-Type': contentType,
@@ -50,11 +49,11 @@ exports.handler = async (event, context) => {
     const acceptRanges = response.headers.get('accept-ranges');
     if (acceptRanges) responseHeaders['Accept-Ranges'] = acceptRanges;
 
-    // Handle M3U8 - rewrite URLs to use this proxy
+    // Handle M3U8 - rewrite URLs
     if (isM3U8) {
       const text = await response.text();
       const baseUrl = new URL(targetUrl);
-      const proxyBase = `https://${event.headers.host}/.netlify/functions/proxy`;
+      const proxyBase = `https://${event.headers.host}/proxy?`;
       
       const rewritten = text.replace(
         /^(?!#)([^\s]+)/gm,
@@ -62,7 +61,7 @@ exports.handler = async (event, context) => {
           if (!match.trim() || match.startsWith('#')) return match;
           try {
             const absoluteUrl = new URL(match, baseUrl).href;
-            return `${proxyBase}?url=${encodeURIComponent(absoluteUrl)}&referer=${encodeURIComponent(referer)}`;
+            return `${proxyBase}url=${encodeURIComponent(absoluteUrl)}&referer=${encodeURIComponent(referer)}`;
           } catch (e) {
             return match;
           }
@@ -76,7 +75,7 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Binary data (TS segments)
+    // Binary data
     const buffer = await response.arrayBuffer();
     return {
       statusCode: 200,
