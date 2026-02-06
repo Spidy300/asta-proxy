@@ -1,14 +1,14 @@
 {
   "version": 2,
   "functions": {
-    "api/proxy.js": {
+    "proxy.js": {
       "maxDuration": 30
     }
   },
   "routes": [
     {
-      "src": "/api/proxy",
-      "dest": "/api/proxy.js",
+      "src": "proxy",
+      "dest": "proxy.js",
       "methods": ["GET", "OPTIONS"],
       "headers": {
         "Access-Control-Allow-Origin": "*",
