@@ -1,15 +1,7 @@
 [build]
-  functions = "."
+  functions = "netlify/functions"
 
 [[redirects]]
-  from = "/proxy"
+  from = "/api/proxy"
   to = "/.netlify/functions/proxy"
   status = 200
-
-[[headers]]
-  for = "/proxy"
-    [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Methods = "GET, OPTIONS"
-    Access-Control-Allow-Headers = "Content-Type, Range, Authorization"
-    Access-Control-Expose-Headers = "Content-Length, Content-Range, Accept-Ranges"
