@@ -1,3 +1,7 @@
+git add vercel.json
+git commit -m "Fix vercel.json conflict - use rewrites instead of routes"
+git push origin main
+
 {
   "version": 2,
   "builds": [
@@ -6,10 +10,10 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/proxy",
-      "dest": "proxy.js"
+      "source": "/api/proxy",
+      "destination": "/proxy.js"
     }
   ],
   "headers": [
