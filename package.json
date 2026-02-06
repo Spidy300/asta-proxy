@@ -1,0 +1,27 @@
+{
+  "name": "hianime-vercel-proxy",
+  "version": "2.0.0",
+  "description": "HLS proxy for HiAnime API - Adds CORS headers for CDN streaming",
+  "type": "module",
+  "main": "api/proxy.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "axios": "^1.7.9"
+  },
+  "engines": {
+    "node": "24.x"
+  },
+  "keywords": [
+    "hianime",
+    "hls",
+    "proxy",
+    "cors",
+    "streaming",
+    "vercel"
+  ],
+  "author": "",
+  "license": "MIT"
+}
