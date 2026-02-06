@@ -85,10 +85,8 @@ export default async function handler(req, res) {
     
     // Handle caching
     if (isTS) {
-      // Cache segments longer
       res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
     } else if (isM3U8) {
-      // Don't cache playlists
       res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     } else {
       res.setHeader('Cache-Control', 'public, max-age=3600');
